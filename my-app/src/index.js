@@ -150,124 +150,32 @@ function calculateWinner(squares) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game/>);*/
 
-import React from 'react';
-// import React, { useState } from "react";
-// import ReactDOM from "react-dom";
-// import './index.css';
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import './first.js';
-import Basic from "./first.js";
+import Basic from "./components/formik/exaple-formik";
+import HelloImg from "./components/helloWorld/index";
+import {names, ListItem} from "./components/list";
+import ListOfName from "./components/list";
+import App from "./components/counter";
+
 
 // import './first.js';
 // import HelloText from "./first";
 // import ListOfName from "./first";
 // import {names} from "./first";
 
-//Рендер строки и картинки
+//Рендер примера формы
+// export const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(<Basic/>);
 
-export const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Basic></Basic>);
+//Рендер строки и картинки
+/*export const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<HelloImg/>);*/
 
 //Рендер списка
-
-/*const names = ['Lisa', 'Anna', 'Mary'];
-
-const ListItem = props => {
-    return <li>{props.value}</li>
-
-}
-
-function ListOfName(props) {
-    const names = props.names;
-    const listItems = names.map((name) =>
-        <ListItem key={name} value={name}/>);
-
-    return (
-        <ul>
-            {listItems}
-        </ul>
-    );
-}
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+/*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<ListOfName names={names}/>);*/
 
-//
-
-/*class Current extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: 0
-        };
-
-        this.handleClick = this.handleClickIncrement.bind(this);
-        this.handleClick = this.handleClickDecrement.bind(this);
-    }
-
-
-    handleClickIncrement() {
-        this.setState(() => ({
-            count: count++
-        }))
-    }
-
-    handleClickDecrement() {
-        this.setState(() => ({
-            count: count--
-        }))
-    }
-
-
-    render() {
-
-        return (
-            <div>
-                <h1 {this.state.count}></h1>
-                <button onClick={this.handleClickIncrement}>
-                    +
-                </button>
-                <button onClick={this.handleClickDecrement}>
-                    -
-                </button>
-            </div>
-        )
-    }
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Current/>);*/
-
 //Инкремент и декремент
-
-/*
-function App() {
-
-    // State to store count value
-    const [count, setCount] = useState(0);
-
-    // Function to increment count by 1
-    const incrementCount = () => {
-        // Update state with incremented value
-        setCount(count + 1);
-    };
-
-    const decrementCount = () => {
-        // Update state with incremented value
-        setCount(count - 1);
-    };
-
-    return (
-        <div className="app">
-            <button onClick={incrementCount}>Click Here</button>
-            <button onClick={decrementCount}>Click Here</button>
-            {count}
-        </div>
-    );
-}
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
-*/
+/*const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);*/
