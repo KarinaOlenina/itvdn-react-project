@@ -150,11 +150,13 @@ function calculateWinner(squares) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game/>);*/
 
-// import React from 'react';
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+// import React, { useState } from "react";
+// import ReactDOM from "react-dom";
 // import './index.css';
-// import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom/client";
+import './first.js';
+import Basic from "./first.js";
 
 // import './first.js';
 // import HelloText from "./first";
@@ -163,8 +165,8 @@ import ReactDOM from "react-dom";
 
 //Рендер строки и картинки
 
-// export const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(HelloText());
+export const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Basic></Basic>);
 
 //Рендер списка
 
@@ -238,6 +240,9 @@ root.render(<ListOfName names={names}/>);*/
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<Current/>);*/
 
+//Инкремент и декремент
+
+/*
 function App() {
 
     // State to store count value
@@ -265,4 +270,4 @@ function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-
+*/
