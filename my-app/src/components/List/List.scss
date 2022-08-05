@@ -1,0 +1,62 @@
+.list {
+  margin-bottom: 30px;
+
+  &__add-button {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    margin-bottom: 3px;
+
+    &.active {
+      color: #31302e;
+      background-color: #f2c53c;
+      box-shadow: 0 3px 15px #b0afa4;
+      border-radius: 4px;
+    }
+
+
+    i {
+      display: inline-flex;
+      margin-right: 8px;
+
+      svg path {
+        fill: #5b5b5b;
+      }
+
+    }
+
+    .bangle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50px;
+      position: relative;
+      left: 3px;
+
+      &--green {
+        background-color: #93c47d;
+      }
+
+      &--blue {
+        background-color: #6fa8dc;
+      }
+
+      &--violet {
+        background-color: #8e7cc3;
+      }
+
+      &--pink {
+        background-color: #c27ba0;
+      }
+
+    }
+  }
+}

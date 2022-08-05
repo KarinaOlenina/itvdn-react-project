@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 
-function App() {
+function Counter() {
 
     // State to store count value
     const [count, setCount] = useState(0);
@@ -27,7 +27,7 @@ function App() {
     );
 }
 
-export default App;
+export default Counter;
 
 // const rootElement = document.getElementById("root");
 // ReactDOM.render(<App />, rootElement);
