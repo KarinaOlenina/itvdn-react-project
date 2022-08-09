@@ -1,8 +1,10 @@
 import React, {useState} from "react";
+
 import List from './components/List'
 import './components/List/List.scss'
 import AddListButton from "./components/AddButtunList";
 import DB from './assets/db.json'
+import Tasks from "./components/Tasks";
 
 function App() {
     const [lists, setLists] = useState(DB.lists.map(item => {
@@ -43,7 +45,7 @@ function App() {
                 <AddListButton onAdd={onAddList} colors={DB.colors}/>
             </div>
             <div className='todo__tasks'>
-                    <h2>FrontEnd</h2>
+                <Tasks/>
             </div>
             </div>
         )
