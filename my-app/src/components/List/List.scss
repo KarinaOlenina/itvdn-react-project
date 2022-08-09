@@ -1,5 +1,6 @@
 .list {
   margin-bottom: 30px;
+  $self: &;
 
   &__add-button {
     opacity: 0.5;
@@ -12,9 +13,26 @@
   li {
     display: flex;
     align-items: center;
-    padding: 10px 12px;
+    padding: 10px 0 10px 12px;
     cursor: pointer;
     margin-bottom: 3px;
+
+    &:hover #{$self}__remove-icon {
+      opacity: 0.2;
+    }
+
+    & #{$self}__remove-icon {
+      opacity: 0;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &:hover {
+      background-color: rgba(255, 355, 255, 0.7);
+      border-radius: 4px;
+    }
 
     &.active {
       color: #31302e;
@@ -23,6 +41,14 @@
       border-radius: 4px;
     }
 
+    .badge {
+      position: relative;
+      left: 3px;
+    }
+
+    span {
+      flex: 1;
+    }
 
     i {
       display: inline-flex;
@@ -30,31 +56,6 @@
 
       svg path {
         fill: #5b5b5b;
-      }
-
-    }
-
-    .bangle {
-      width: 10px;
-      height: 10px;
-      border-radius: 50px;
-      position: relative;
-      left: 3px;
-
-      &--green {
-        background-color: #93c47d;
-      }
-
-      &--blue {
-        background-color: #6fa8dc;
-      }
-
-      &--violet {
-        background-color: #8e7cc3;
-      }
-
-      &--pink {
-        background-color: #c27ba0;
       }
 
     }
