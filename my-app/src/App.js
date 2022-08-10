@@ -3,8 +3,9 @@ import React, {useState} from "react";
 import List from './components/List'
 import './components/List/List.scss'
 import AddListButton from "./components/AddButtunList";
-import DB from './assets/db.json'
 import Tasks from "./components/Tasks";
+
+import DB from './assets/db.json'
 
 function App() {
     const [lists, setLists] = useState(DB.lists.map(item => {

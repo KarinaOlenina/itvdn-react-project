@@ -26,6 +26,8 @@
 
       &:hover {
         opacity: 1;
+        animation-name: opacity02;
+        animation-duration: 0.3s;
       }
     }
 
@@ -57,7 +59,9 @@
       svg path {
         fill: #5b5b5b;
       }
-
+    }
+    img {
+      margin-right: 10px;
     }
   }
 }

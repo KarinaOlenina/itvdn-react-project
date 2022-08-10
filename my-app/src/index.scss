@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+@keyframes opacity02 {
+  from {opacity: 0.2;}
+  to {opacity: 1;}
+}
+
 body {
   background-color: #2e3b47;
 
