@@ -1,29 +1,67 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-import List from './components/List'
-import './components/List/List.scss'
-import AddListButton from "./components/AddButtunList";
-import Tasks from "./components/Tasks";
+import {AddListButton, List, Tasks} from './components';
 
-import DB from './assets/db.json'
+import axios from "axios";
+
 
 function App() {
-    const [lists, setLists] = useState(DB.lists.map(item => {
-        item.color = DB.colors.find(color => color.id === item.colorId).name;
-        return item;
-    })); /*Нашли цвет по id и записали item из DB.list*/
+
+    const [lists, setLists] = useState(null);
+    const [colors, setColors] = useState(null);
+    const [activeItem, setActiveItem] = useState(null)
+
+    // const [lists, setLists] = useState(DB.lists.map(item => {
+    //     item.color = DB.colors.find(color => color.id === item.colorId).name;
+    //     return item;
+    // })); /*Нашли цвет по id и записали item из DB.list*/
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
+            .then(({data}) => {
+                setLists(data);
+            });
+        axios.get('http://localhost:3001/colors').then(({data}) => {
+            setColors(data);
+        });
+    }, []);
+    /* Хук, как только компонент отрэндэрился, вызови 1 раз то что в теле,
+    в массив передаем то за чьим изменением мы будем следить (при изменении
+    этого элемента - тело будет снова вызываться) */
 
     const onAddList = (obj) => {
         const newList = [...lists, obj];
         setLists(newList);
-        console.log(newList)
     } /*Получили новый обьект из AddListButton*/
+
+    const onAddTask = (listId, taskObj) => {
+        const newList = lists.map(list => {
+            if (list.id === listId) {
+                list.tasks = [...list.tasks, taskObj] /*=> Берем старый tasks и добавляем новый*/
+            }
+            return list;
+        })
+        setLists(newList);
+        console.log(newList);
+    }
+
+    const onEditListTitle = (id, title) => {
+        const newList = lists.map(list => {
+            if (list.id === id) {
+                list.name = title;    /* => сравнивает id и если совпадение - меняет name*/
+            }
+            return list;
+        });
+        setLists(newList);
+    }
 
     return (
         <div className='todo'>
             <div className='todo__sidebar'>
                 <List items={[
                     {
+                        active: true,
                         icon: <svg
                             width="18"
                             height="18"
@@ -35,18 +73,31 @@ function App() {
                                 fill="black"/>
                         </svg>,
                         name: 'Все задачи',
-                        active: true,
                     },
                 ]}
                 />
-                <List onRemove={list => alert(`Список: ${JSON.stringify(list)} будет удален`)}
-                      items={lists}
-                      isRemoveble
-                />
-                <AddListButton onAdd={onAddList} colors={DB.colors}/>
+                {lists ? (
+                    <List
+                        items={lists}
+                        onRemove={id => {
+                            const newLists = lists.filter(item => item.id !== id);/* => выводим массив со списком без id удаляемого списка*/
+                            setLists(newLists); /*=> и записываем его в состояние*/
+                        }}
+                        onClickItem={item => {
+                            setActiveItem(item)
+                        }}
+                        activeItem={activeItem} /*=> передаем активный элемент списка */
+                        isRemovable
+                    />
+                ) : (
+                    'Загрузка...'
+                )}
+                {/*=> Добавили загрузку */}
+                <AddListButton onAdd={onAddList} colors={colors}/>
             </div>
             <div className='todo__tasks'>
-                <Tasks/>
+                {lists && activeItem &&
+                    <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}/>}
             </div>
             </div>
         )

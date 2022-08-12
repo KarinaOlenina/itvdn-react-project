@@ -9,32 +9,77 @@
     color: #c27ba0;
     padding-bottom: 20px;
     border-bottom: 1px solid #eeeeee;
+    cursor: default;
   }
 
   :hover {
-    img {
+    #penSvg {
       opacity: 0.2;
     }
   }
 
-  img {
+  #penSvg {
     opacity: 0;
     cursor: pointer;
     margin-left: 10px;
 
     &:hover {
       opacity: 1;
-      animation-name: opacity02;
-      animation-duration: 0.3s;
+
+    }
+  }
+
+  &__form {
+    margin-top: 20px;
+
+    &-add {
+      .button {
+        margin: 10px 10px 0 0;
+      }
+    }
+
+    &-new {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.15s ease-in-out;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      img {
+        width: 16px;
+        height: 16px;
+        margin-left: 4px;
+      }
+
+      span {
+        font-size: 16px;
+        margin-left: 19px;
+      }
     }
   }
 
   &__items {
     margin-top: 30px;
 
+    h2 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #bcbcbc;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+
     &-row {
       display: flex;
       align-items: center;
+      margin-bottom: 15px;
     }
 
     input {
@@ -42,6 +87,10 @@
       width: 100%;
       border: none;
       margin-left: 15px;
+      text-overflow: ellipsis; /* => Обрезает и ставит ...*/
+      overflow: hidden;
+      height: 1.2em;
+      white-space: nowrap;
     }
   }
 
@@ -76,7 +125,7 @@
       }
     }
 
-    #check {
+    input {
       display: none;
 
       &:checked + label {

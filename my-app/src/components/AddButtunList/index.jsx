@@ -1,35 +1,56 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+
 import List from "../List";
-import './AddButtonList.scss'
 import Badge from "../Badge";
 
 import closeSvg from '../../assets/icons/close.svg'
+import './AddButtonList.scss'
 
 
 const AddListButton = ({colors, onAdd}) => {
     const [state, setState] = useState(false);
-    const [stateSelectColor, setStateSelectColor] = useState(colors[0].id); /* => Берем первый id первого элимента*/
+    const [stateSelectColor, setStateSelectColor] = useState(1);
     const [inputValue, setInputValue] = useState('');
-    const [placeHolder, setPlaceHolder] = useState('Название папки')
+    const [placeHolder, setPlaceHolder] = useState('Название списка');
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (Array.isArray(colors)) {
+            setStateSelectColor(colors[0].id);
+        }
+    }, [colors]); /* => Берем первый id первого элимента*/
 
     const addTask = () => {
         if (!inputValue) {
-            setPlaceHolder('Введите название папки');
+            setPlaceHolder('Введите название списка');
             return;
         }
-        const color = colors.find(color => color.id === stateSelectColor).name;
-        onAdd({
-            id: Math.random(),
-            name: inputValue,
-            color,
-        });
-        onClose();
+
+        setIsLoading(true); /* => Идет загрузка*/
+
+        axios
+            .post('http://localhost:3001/lists', {
+                name: inputValue,
+                colorId: stateSelectColor
+            })
+            .then(({data}) => {
+                const color = colors.find(color => color.id === stateSelectColor).name; /* => нашли цвет по id*/
+                const listObj = {...data, color: {name: color}}; /* => передали наш цвет как новый обьект со свойством name*/
+                onAdd(listObj); /* => Добавили новый обьект*/
+                onClose(); /* => Закрыли окошко*/
+            })
+            .catch(() => alert('Ошибка при добавлении списка'))
+            .finally(() => {
+                setIsLoading(false); /* => В любом случае, положительный ответ или нет, теперь false (снова можно 'добавить')*/
+            });
     }
 
     const onClose = () => {
         setInputValue('');
         setState(false);
-        setStateSelectColor(colors[0].id)
+        setStateSelectColor(colors[0].id);
+        setPlaceHolder('Название списка');
     }
 
     return (
@@ -51,7 +72,7 @@ const AddListButton = ({colors, onAdd}) => {
                             <path d="M1 8H15" stroke="black" strokeWidth="2" strokeLinecap="round"
                                   strokeLinejoin="round"/>
                         </svg>,
-                        name: 'Добавить задачу',
+                        name: 'Добавить список',
                     },
                 ]}
             />
@@ -78,9 +99,10 @@ const AddListButton = ({colors, onAdd}) => {
                         }
                     </div>
                     <button
+                        disabled={isLoading}
                         onClick={addTask}
-                        className='button'
-                    >Добавить
+                        className='button'>
+                        {isLoading ? 'Добавление...' : ' Добавить'}
                     </button>
                 </div>
             )}
