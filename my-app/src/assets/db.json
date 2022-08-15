@@ -21,9 +21,9 @@
       "colorId": 2
     },
     {
-      "id": 5,
       "name": "Личное",
-      "colorId": 1
+      "colorId": 6,
+      "id": 5
     }
   ],
   "tasks": [
@@ -80,7 +80,7 @@
     },
     {
       "id": 4,
-      "hex": "#93c47d",
+      "hex": "#c27ba0",
       "name": "pink"
     },
     {

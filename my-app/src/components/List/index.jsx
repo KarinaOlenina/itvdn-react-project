@@ -7,7 +7,7 @@ import '../AddButtunList'
 import Badge from "../Badge";
 import removeSvg from '../../assets/icons/remove.svg'
 
-const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeItem}) => {
+const List = ({items, isRemovable, onClick, onRemove, activeItem}) => {
 
     const isRemoveList = (item) => {
         if (window.confirm('Вы действительно хотите удалить список?')) {
@@ -17,9 +17,10 @@ const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeItem}) 
         }
     }
 
+
     return (
         <ul
-            onClick={onClick}
+            // onClick={onClick}
             className='list'>
             {
                 items.map((item, index) =>
@@ -28,7 +29,8 @@ const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeItem}) 
                         className={classNames(item.className, {
                             active: item.active ? item.active : activeItem && activeItem.id === item.id /* => сравнивает id выбраного элемента и добавляет статус active*/
                         })}
-                        onClick={() => onClickItem ? onClickItem(item) : null} /*=> Если f есть - вызови анонимную f */
+
+                        onClick={() => onClick ? onClick(item)  : null} /*=> Если f есть - вызови анонимную f */
                     >{/* classname не воспринимает булевые значения!*/}
                         <i>
                             {item.icon ? item.icon :

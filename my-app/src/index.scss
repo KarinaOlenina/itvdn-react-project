@@ -28,7 +28,8 @@ body {
   left: 50%;
   top: 50%;
   width: 750px;
-  min-height: 530px;
+  min-height: 500px;
+  max-height: 90%;
   background-color: #fff;
   border-radius: 10px;
   transform: translate(-50%, -50%);
@@ -38,15 +39,36 @@ body {
   &__sidebar {
     background-color: #f4f6f8;
     width: 230px;
-    //height: 100%;
     border-right: 1px solid #f1f1f1;
     border-radius: 10px 0 0 10px;
-    padding: 60px 20px;
+    padding: 60px 20px 5px 20px;
+
+    overflow: auto;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    &:nth-child(n) {
+      overflow-x: visible;
+      overflow-y: auto;
+    }
   }
 
   &__tasks {
     flex: 1;
     padding: 60px;
+    overflow: hidden;
+    overflow-y: auto;
+
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 }
 

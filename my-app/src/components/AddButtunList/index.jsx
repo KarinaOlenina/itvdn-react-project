@@ -35,8 +35,8 @@ const AddListButton = ({colors, onAdd}) => {
                 colorId: stateSelectColor
             })
             .then(({data}) => {
-                const color = colors.find(color => color.id === stateSelectColor).name; /* => нашли цвет по id*/
-                const listObj = {...data, color: {name: color}}; /* => передали наш цвет как новый обьект со свойством name*/
+                const color = colors.find(color => color.id === stateSelectColor); /* => нашли цвет по id*/
+                const listObj = {...data, color: {name: color.name, hex: color.hex }, tasks: []}; /* => передали tasks как пустой оьект, и наш цвет как новый обьект со свойством name*/
                 onAdd(listObj); /* => Добавили новый обьект*/
                 onClose(); /* => Закрыли окошко*/
             })

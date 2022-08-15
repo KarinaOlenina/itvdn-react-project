@@ -149,19 +149,20 @@ function calculateWinner(squares) {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game/>);*/
-
-import React, { useState } from "react";
-// import ReactDOM from 'react-dom'
-import ReactDOM from "react-dom/client";
 // import Basic from "./components/formik/exaple-formik";
 // import HelloImg from "./components/helloWorld/index";
 // import {names, ListItem} from "./components/listItem";
 // import ListOfName from "./components/listItem";
 // import Counter from "./components/counter";
+
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import {BrowserRouter as Router} from "react-router-dom";
+
 import App from './App'
 import './index.scss';
 
-// import './first.js';
+/*// import './first.js';
 // import HelloText from "./first";
 // import ListOfName from "./first";
 // import {names} from "./first";
@@ -171,21 +172,25 @@ import './index.scss';
 // root.render(<Basic/>);
 
 //Рендер строки и картинки
-/*export const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<HelloImg/>);*/
+/!*export const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<HelloImg/>);*!/
 
 //Рендер списка
-/*const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<ListOfName names={names}/>);*/
+/!*const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<ListOfName names={names}/>);*!/
 
 //Инкремент и декремент
-/*const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Counter/>);*/
+/!*const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Counter/>);*!/
 
 //Список заметок
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<App/>);
+// root.render(<App/>);*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App/>);
+root.render(
+    <Router>
+        <App/>
+    </Router>
+);

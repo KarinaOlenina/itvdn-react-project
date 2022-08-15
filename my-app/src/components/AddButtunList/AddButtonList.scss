@@ -5,7 +5,9 @@
   }
 
   &__popup {
-    position: relative;
+    z-index: 1;
+    position: absolute;
+    //position: relative;
     width: 240px;
     height: 140px;
     background-color: #fff;

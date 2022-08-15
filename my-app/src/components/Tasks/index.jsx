@@ -6,7 +6,7 @@ import './Tasks.scss';
 import penSvg from '../../assets/icons/edit.svg';
 
 
-const Tasks = ({list, onEditTitle, onAddTask}) => {
+const Tasks = ({list, onEditTitle, onAddTask, withoutEmpty}) => {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка', list.name);
@@ -22,15 +22,16 @@ const Tasks = ({list, onEditTitle, onAddTask}) => {
 
     return (
         <div className="tasks">
-            <h2 className='tasks__title'>
+            <h2 style={{color: list.color.hex}} className='tasks__title'>
+                {/*{console.log(list)}*/}
                 {list.name}
                 <img id='penSvg' onClick={editTitle}
                      src={penSvg} alt='Кнопка исправить'/>
             </h2>
             <div className="tasks__items">
-                {!list['tasks'].length && <h2>Нет активных задач</h2>}
+                {list['tasks'] && !list['tasks'].length && !withoutEmpty && <h2>Нет активных задач</h2>} {/*=> Проверяем есть ли вообще лист с задачами*/}
                 {
-                    list['tasks'].map(task =>
+                    list['tasks'] && list['tasks'].map(task =>
                         <div key={task.id} className="tasks__items-row">
                             <div className="checkbox">
                                 <input id={`task-${task.id}`} type="checkbox"/> {/*=> Создали уникальный id*/}

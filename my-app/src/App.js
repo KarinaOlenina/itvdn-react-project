@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+
 
 import {AddListButton, List, Tasks} from './components';
 
@@ -9,7 +11,12 @@ function App() {
 
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState(null);
-    const [activeItem, setActiveItem] = useState(null)
+    const [activeItem, setActiveItem] = useState(null);
+    let navigate = useNavigate();
+    let location = useLocation();
+
+    // console.log(navigate);
+    // console.log(location);
 
     // const [lists, setLists] = useState(DB.lists.map(item => {
     //     item.color = DB.colors.find(color => color.id === item.colorId).name;
@@ -33,7 +40,7 @@ function App() {
     const onAddList = (obj) => {
         const newList = [...lists, obj];
         setLists(newList);
-    } /*Получили новый обьект из AddListButton*/
+    }; /*Получили новый обьект из AddListButton*/
 
     const onAddTask = (listId, taskObj) => {
         const newList = lists.map(list => {
@@ -43,8 +50,8 @@ function App() {
             return list;
         })
         setLists(newList);
-        console.log(newList);
-    }
+        // console.log(newList);
+    };
 
     const onEditListTitle = (id, title) => {
         const newList = lists.map(list => {
@@ -54,12 +61,31 @@ function App() {
             return list;
         });
         setLists(newList);
-    }
+    };
+
+    const onClickItem = (list) => {
+        navigate(`/lists/${list.id}`);
+    };
+
+    const onClickAllItems = () => {
+        navigate(`/`);
+    };
+
+    useEffect(() => {
+        const listId = location.pathname.split('lists/')[1];
+        if (lists) {
+            const list = lists.find(list => list.id === Number(listId));
+            setActiveItem(list);
+        }
+        console.log(listId)
+    }, [lists, location.pathname])
 
     return (
         <div className='todo'>
             <div className='todo__sidebar'>
-                <List items={[
+                <List
+                    onClick={onClickAllItems}
+                    items={[
                     {
                         active: true,
                         icon: <svg
@@ -76,6 +102,7 @@ function App() {
                     },
                 ]}
                 />
+                <AddListButton onAdd={onAddList} colors={colors}/>
                 {lists ? (
                     <List
                         items={lists}
@@ -83,9 +110,8 @@ function App() {
                             const newLists = lists.filter(item => item.id !== id);/* => выводим массив со списком без id удаляемого списка*/
                             setLists(newLists); /*=> и записываем его в состояние*/
                         }}
-                        onClickItem={item => {
-                            setActiveItem(item)
-                        }}
+                        // onClickList={onClickItem}
+                        onClick={onClickItem}
                         activeItem={activeItem} /*=> передаем активный элемент списка */
                         isRemovable
                     />
@@ -93,11 +119,23 @@ function App() {
                     'Загрузка...'
                 )}
                 {/*=> Добавили загрузку */}
-                <AddListButton onAdd={onAddList} colors={colors}/>
             </div>
             <div className='todo__tasks'>
-                {lists && activeItem &&
-                    <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}/>}
+                <Routes>
+                    <Route path='/' element={
+                        lists && lists.map((list) => (
+                            <Tasks key={list.id}
+                                   list={list}
+                                   onAddTask={onAddTask}
+                                   onEditTitle={onEditListTitle}
+                                   withoutEmpty
+                            />
+                        ))
+                    }/>
+                    <Route path='/lists/:id' element={lists && activeItem &&
+                        <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}/>
+                    }/>
+                </Routes>
             </div>
             </div>
         )
