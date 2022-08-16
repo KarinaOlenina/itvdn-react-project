@@ -20,7 +20,6 @@ const List = ({items, isRemovable, onClick, onRemove, activeItem}) => {
 
     return (
         <ul
-            // onClick={onClick}
             className='list'>
             {
                 items.map((item, index) =>

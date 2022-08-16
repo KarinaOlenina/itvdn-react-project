@@ -85,6 +85,10 @@
       align-items: center;
       margin-bottom: 15px;
 
+      &:hover &-actions {
+        opacity: 1;
+      }
+
       &-actions {
         display: flex;
         opacity: 0;
@@ -103,16 +107,17 @@
 
           &:hover {
             background-color: darken(#f4f6f8, 2%);
+
             svg {
               opacity: 0.9;
             }
           }
 
-          svg {
+          img {
             width: 11px;
             height: 11px;
             opacity: 0.4;
-          }
+          } /*!!!*/
         }
       }
     }

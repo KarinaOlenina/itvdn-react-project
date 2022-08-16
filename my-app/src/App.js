@@ -15,9 +15,6 @@ function App() {
     let navigate = useNavigate();
     let location = useLocation();
 
-    // console.log(navigate);
-    // console.log(location);
-
     // const [lists, setLists] = useState(DB.lists.map(item => {
     //     item.color = DB.colors.find(color => color.id === item.colorId).name;
     //     return item;
@@ -50,8 +47,26 @@ function App() {
             return list;
         })
         setLists(newList);
-        // console.log(newList);
     };
+
+    const onRemoveTask = (listId, taskId) => {
+        if (window.confirm('Вы действительно хотите удалить задачу?')) {
+            const newList = lists.map(item => {
+                if (item.id === listId) {
+                    item.tasks = item.tasks.filter(task => task.id !== taskId)
+                }
+                return item;
+            });
+            setLists(newList);
+            axios
+                .delete('http://localhost:3001/tasks/' + taskId)
+                .catch(() => alert('Не удалось удалить задачу'))
+        }
+    };
+
+    const onEditTask = () => {
+
+    }
 
     const onEditListTitle = (id, title) => {
         const newList = lists.map(list => {
@@ -71,13 +86,13 @@ function App() {
         navigate(`/`);
     };
 
+
     useEffect(() => {
         const listId = location.pathname.split('lists/')[1];
         if (lists) {
             const list = lists.find(list => list.id === Number(listId));
             setActiveItem(list);
         }
-        console.log(listId)
     }, [lists, location.pathname])
 
     return (
@@ -110,7 +125,6 @@ function App() {
                             const newLists = lists.filter(item => item.id !== id);/* => выводим массив со списком без id удаляемого списка*/
                             setLists(newLists); /*=> и записываем его в состояние*/
                         }}
-                        // onClickList={onClickItem}
                         onClick={onClickItem}
                         activeItem={activeItem} /*=> передаем активный элемент списка */
                         isRemovable
@@ -133,7 +147,12 @@ function App() {
                         ))
                     }/>
                     <Route path='/lists/:id' element={lists && activeItem &&
-                        <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}/>
+                        <Tasks
+                            list={activeItem}
+                            onAddTask={onAddTask}
+                            onRemoveTask={onRemoveTask}
+                            onEditTask={onEditTask}
+                            onEditTitle={onEditListTitle}/>
                     }/>
                 </Routes>
             </div>
