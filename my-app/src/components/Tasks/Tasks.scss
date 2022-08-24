@@ -4,6 +4,10 @@
     margin-bottom: 40px;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   &__title {
     flex: 1;
     font-family: Montserrat, sans-serif;
@@ -117,8 +121,18 @@
             width: 11px;
             height: 11px;
             opacity: 0.4;
-          } /*!!!*/
+          }
+
+          /*!!!*/
         }
+      }
+    }
+
+    .active-div {
+      background-color: #d9ead3;
+
+      &:hover {
+        background-color: darken(#d9ead3, 10%);
       }
     }
 
@@ -131,7 +145,14 @@
       overflow: hidden;
       height: 1.2em;
       white-space: nowrap;
+
     }
+  }
+
+  .active-input {
+    border: 1px solid #bcbcbc;
+    border-radius: 5px;
+    padding: 12px 10px;
   }
 
   .checkbox {

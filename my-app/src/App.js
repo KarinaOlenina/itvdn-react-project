@@ -12,6 +12,7 @@ function App() {
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
+    const [activeTask, setActiveTask] = useState(false);
     let navigate = useNavigate();
     let location = useLocation();
 
@@ -64,9 +65,33 @@ function App() {
         }
     };
 
-    const onEditTask = () => {
+    const onEditTask = (listId, taskObj) => {
+        const newTaskText = window.prompt('Введите текст задачи:', taskObj.text);
 
-    }
+        if (!newTaskText) {
+            return;
+        }
+
+        const newList = lists.map(list => {
+            if (list.id === listId) {
+                list.tasks = list.tasks.map(task => {
+                    if (task.id === taskObj.id) {
+                        task.text = newTaskText;
+                    }
+                    return task;
+                });
+            }
+            return list;
+        });
+        setLists(newList);
+        axios
+            .patch('http://localhost:3001/tasks/' + taskObj.id, {
+                text: newTaskText
+            })
+            .catch(() => {
+                alert('Не удалось удалить задачу');
+            });
+    };
 
     const onEditListTitle = (id, title) => {
         const newList = lists.map(list => {
@@ -77,6 +102,28 @@ function App() {
         });
         setLists(newList);
     };
+
+    const onCompleteTask = (listId, taskId, completed) => {
+        const newList = lists.map(list => {
+            if (list.id === listId) {
+                list.tasks = list.tasks.map(task => {
+                    if (task.id === taskId) {
+                        task.completed = completed;
+                    }
+                    return task;
+                });
+            }
+            return list;
+        });
+        setLists(newList);
+        axios
+            .patch('http://localhost:3001/tasks/' + taskId, {
+                completed
+            })
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            });
+    }
 
     const onClickItem = (list) => {
         navigate(`/lists/${list.id}`);
@@ -92,6 +139,7 @@ function App() {
         if (lists) {
             const list = lists.find(list => list.id === Number(listId));
             setActiveItem(list);
+            // setActiveTask(false);
         }
     }, [lists, location.pathname])
 
@@ -102,7 +150,7 @@ function App() {
                     onClick={onClickAllItems}
                     items={[
                     {
-                        active: true,
+                        active: location.pathname === '/',
                         icon: <svg
                             width="18"
                             height="18"
@@ -141,7 +189,10 @@ function App() {
                             <Tasks key={list.id}
                                    list={list}
                                    onAddTask={onAddTask}
+                                   onRemoveTask={onRemoveTask}
+                                   onEditTask={onEditTask}
                                    onEditTitle={onEditListTitle}
+                                   onCompleteTask={onCompleteTask}
                                    withoutEmpty
                             />
                         ))
@@ -152,7 +203,9 @@ function App() {
                             onAddTask={onAddTask}
                             onRemoveTask={onRemoveTask}
                             onEditTask={onEditTask}
-                            onEditTitle={onEditListTitle}/>
+                            onEditTitle={onEditListTitle}
+                            onCompleteTask={onCompleteTask}
+                            activeTask={activeTask}/>
                     }/>
                 </Routes>
             </div>

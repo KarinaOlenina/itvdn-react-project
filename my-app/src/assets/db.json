@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продажи",
+      "name": "Покупки",
       "colorId": 5
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "id": 3,
-      "name": "Фильмы и сериалы",
+      "name": "Фильмы ",
       "colorId": 3
     },
     {
@@ -43,7 +43,7 @@
       "id": 3,
       "listId": 2,
       "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
+      "completed": false
     },
     {
       "id": 4,
@@ -52,10 +52,34 @@
       "completed": false
     },
     {
-      "listId": 3,
-      "text": "test12",
+      "listId": 4,
+      "text": "JS подробное руководство",
       "completed": false,
-      "id": 5
+      "id": 6
+    },
+    {
+      "listId": 3,
+      "text": "Национальная безопасность 2003 ",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "listId": 5,
+      "text": "Поздравить друга с ДР",
+      "completed": true,
+      "id": 8
+    },
+    {
+      "listId": 3,
+      "text": "Дневная смена 2022",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "listId": 1,
+      "text": "TEST",
+      "completed": false,
+      "id": 10
     }
   ],
   "colors": [
