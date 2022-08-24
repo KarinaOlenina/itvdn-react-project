@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 
 import './Tasks.scss';
 import editSvg from '../../assets/icons/edit.svg';
 import removeSvg from '../../assets/icons/remove.svg';
+import taskCheckedSvg from '../../assets/icons/task-check.svg'
 
 
 
-const Task = ({id, text, list, onRemove, onEdit}) => {
+const Task = ({id, text, list, completed, onRemove, onEdit, activeTask, onComplete}) => {
+
+    const [inputValue, setInputValue] = useState(text);
+
+    const onChangeCheckBox = e => {
+        onComplete(list.id, id, e.target.checked)
+    }
 
     return (
         <div key={id} className="tasks__items-row">
             <div className="checkbox">
-                <input id={`task-${id}`} type="checkbox"/> {/*=> Создали уникальный id*/}
+                <input onChange={onChangeCheckBox} id={`task-${id}`} type="checkbox" checked={completed}/> {/*=> Создали уникальный id*/}
                 <label htmlFor={`task-${id}`}> {/*=> Передали уникальный id*/}
                     <svg width="11" height="8" viewBox="0 0 11 8" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +28,14 @@ const Task = ({id, text, list, onRemove, onEdit}) => {
                     </svg>
                 </label>
             </div>
-            <input readOnly={true} defaultValue={text}/> {/*=> Передали текст задач*/}
+            <input
+                readOnly={!activeTask}
+                className={`${activeTask ? 'active-input' : ''}`}
+                onChange={e => {
+                    setInputValue(e.target.value)
+                }}
+                defaultValue={`${inputValue}`}/> {/*=> Передали текст задач*/}
+
             <div className="tasks__items-row-actions">
                 {/*                <div>
                     <svg width="11"
@@ -37,11 +51,18 @@ const Task = ({id, text, list, onRemove, onEdit}) => {
                             strokeLinejoin="round"/>
                     </svg>
                 </div>*/}
-                <div onClick={() => onEdit}>
-                    <img src={editSvg} alt="Кнопка редактировать"/>
+                <div
+                    className={`${activeTask ? 'active-div' : ''}`}
+                    onClick={() => onEdit(list.id, {id, text})}>
+                    <img
+                        src={`${activeTask ? taskCheckedSvg : editSvg}`}
+                        alt="Кнопка редактировать"/>
                 </div>
-                <div onClick={() => onRemove(list.id, id)}>
-                    <img src={removeSvg} alt="Кнопка удалить"/>
+                <div
+                    onClick={() => onRemove(list.id, id)}>
+                    <img
+                        src={removeSvg}
+                        alt="Кнопка удалить"/>
                 </div>
             </div>
         </div>

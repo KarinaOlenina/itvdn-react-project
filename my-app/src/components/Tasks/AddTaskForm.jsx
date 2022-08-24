@@ -19,7 +19,8 @@ const AddTaskForm = ({list, onAddTask}) => {
     }
 
     const addTask = () => {
-        if (!inputValue) {
+
+        if (!inputValue ) {
             setPlaceHolder('Введите текст задачи');
             return;
         }
