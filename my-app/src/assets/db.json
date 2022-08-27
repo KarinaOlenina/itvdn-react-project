@@ -60,7 +60,7 @@
     {
       "listId": 3,
       "text": "Национальная безопасность 2003 ",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "listId": 1,
-      "text": "TEST",
+      "text": "TEST1",
       "completed": false,
       "id": 10
     }

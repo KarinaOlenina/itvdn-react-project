@@ -24,7 +24,7 @@ const Tasks = ({list, onEditTitle, onAddTask, onRemoveTask, onEditTask, activeTa
 
     return (
         <div className="tasks">
-            <Link to={`lists/${list.id}`}>
+            <Link to={`/lists/${list.id}`}>
                 <h2 style={{color: list.color.hex}} className='tasks__title'>
                     {list.name}
                     <img id='penSvg' onClick={editTitle}

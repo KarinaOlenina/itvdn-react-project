@@ -139,7 +139,6 @@ function App() {
         if (lists) {
             const list = lists.find(list => list.id === Number(listId));
             setActiveItem(list);
-            // setActiveTask(false);
         }
     }, [lists, location.pathname])
 
